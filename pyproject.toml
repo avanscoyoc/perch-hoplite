@@ -1,0 +1,61 @@
+[tool.poetry]
+name = "perch-hoplite"
+version = "0.1.1"
+description = "Tooling for agile modeling on large machine perception embedding databases."
+authors = ["Perch Team <chirp-bio@google.com>"]
+license = "Apache 2.0"
+
+[project]
+# Project metadata. Available keys are documented at:
+# https://packaging.python.org/en/latest/specifications/declaring-project-metadata
+name = "perch-hoplite"
+description = "Tooling for agile modeling on large machine perception embedding databases."
+readme = "README.md"
+requires-python = ">=3.10"
+license = {file = "LICENSE"}
+authors = [
+    {name = "tom denton", email="tomdenton@google.com"},
+    {name = "Vincent Dumoulin", email="vdumoulin@google.com"},
+    {name = "Jeninka Hamer", email="hamer@google.com"},
+    {name = "Bart van Merriënboer", email="bartvm@google.com"},
+    {name = "Frank Zhang", email="zhangfrank@google.com"},
+]
+
+[tool.poetry.dependencies]
+# These dependencies are part of the implicit 'main' group, meaning
+# they will be installed when using `pip install`.
+# Other dependency groups will not be installed by pip, however.
+# See: https://python-poetry.org/docs/managing-dependencies/#dependency-groups
+python = ">=3.11,<3.13"
+absl-py = "^1.4.0"
+ml-collections = "^0.1.1"
+etils = {version = "^1.5.0", extras = ["epath"]}
+imageio = "^2.5.0"
+matplotlib = "^3.6.1"
+notebook = "^7.4"
+librosa = "^0.11"
+numpy = "^1.24.0"
+usearch = "^2.17"
+pandas = {version = "^2.1.1", extras=["gcp"]}
+ipywidgets = "^8.1"
+jupyter = "^1.1.1"
+ipython = "^9.4.0"
+
+[tool.poetry.group.tf]
+optional = false
+
+[tool.poetry.group.tf.dependencies]
+tensorflow = "^2.19"
+tensorflow-hub = "^0.16"
+
+[tool.poetry.group.jax]
+optional = true
+
+[tool.poetry.group.jax.dependencies]
+flax = "^0.10"
+jax = "^0.6"
+
+
+[build-system]
+requires = ["poetry-core>=1.5.0"]
+build-backend = "poetry.core.masonry.api"

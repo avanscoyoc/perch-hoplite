@@ -1,0 +1,42 @@
+name: ci_poetry_with_jax
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  # Allows to run this workflow manually from the Actions tab on GitHub.
+  workflow_dispatch:
+
+jobs:
+  test-ubuntu:
+    name: "test on ${{ matrix.python-version }} on ${{ matrix.os }}"
+    runs-on: "${{ matrix.os }}"
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.11", "3.12"]
+        os: [ubuntu-latest]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Poetry
+        run: pipx install poetry
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: 'poetry'
+      - name: Install Hoplite and its dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install libsndfile1 ffmpeg
+          poetry install --with jax
+      - name: Test db with unittest
+        run: poetry run python -m unittest discover -s perch_hoplite/db/tests -p "*test.py"
+      - name: Test taxonomy with unittest
+        run: poetry run python -m unittest discover -s perch_hoplite/taxonomy -p "*test.py"
+      - name: Test zoo with unittest
+        run: poetry run python -m unittest discover -s perch_hoplite/zoo -p "*test.py"
+      - name: Test zoo tensorflow models with unittest
+        run: poetry run python -m unittest discover -s perch_hoplite/zoo/tests_tf -p "*test.py"
+      - name: Test agile with unittest
+        run: poetry run python -m unittest discover -s perch_hoplite/agile/tests -p "*test.py"

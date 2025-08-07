@@ -1,0 +1,34 @@
+name: Upload Hoplite Python Package to PyPI when a release is Created
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  pypi-publish:
+    name: Publish Hoplite release to PyPI
+    runs-on: ubuntu-latest
+    environment:
+      name: pypi
+      url: https://pypi.org/p/perch-hoplite
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Poetry
+        run: pipx install poetry
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+          cache: 'poetry'
+      - name: Install Hoplite and its dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install libsndfile1 ffmpeg
+          poetry install
+      - name: Build package
+        run: |
+          poetry build
+      - name: Publish package distributions to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1

@@ -1,0 +1,10 @@
+mojave_data/
+.venv/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+node_modules/
+*.log
+*.csv
+.DS_Store
+poetry.lock
