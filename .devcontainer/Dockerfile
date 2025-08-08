@@ -11,6 +11,7 @@ RUN apt-get update && apt-get install -y \
     apt-transport-https \
     python3-dev \
     gcc \
+    libffi-dev \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Google Cloud SDK (for gsutil)
