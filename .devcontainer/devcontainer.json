@@ -16,8 +16,8 @@
     }
   },
   "workspaceFolder": "/workspace",
-  "postCreateCommand": "mkdir -p /workspace/gcs-bucket && gsutil -m cp -r gs://dse-staff/soundhub/mojave_data /workspace/gcs-bucket",
   "mounts": [
-    "source=${env:HOME}/.config/gcloud,target=/root/.config/gcloud,type=bind"
+    "source=${env:HOME}/.config/gcloud,target=/root/.config/gcloud,type=bind",
+    "source=/Volumes/ExtremeSSD/Mojave,target=/mnt/mojave,type=bind"
   ]
 }
